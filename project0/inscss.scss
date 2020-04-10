@@ -1,0 +1,20 @@
+%h {
+	font-family: sans-serif;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.about {
+	@extend %h;
+	color: green;
+}
+
+.placements {
+    @extend %h;
+    color: orange;
+}
+
+.home {
+    @extend %h;
+    color: red;
+}
