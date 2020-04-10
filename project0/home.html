@@ -3,41 +3,21 @@
 <html>
 	<head>
 		<title>Home</title>
-		<style>
-			h1 {
-				text-align: center;
-				font-size: 40px;
-			}
-			h3 {
-				margin: 10px 25px;
-				text-align: 10px;
-				font-weight: normal;
-				background-color: lightgrey;
-				color: blue;
-			}
-			button {
-				margin: 10px 25px;
-				width: 200px;
-				height: 50px;
-				font-size: 24;
-				background-color: lightgrey;
-			}
-			button:hover {
-				background-color: skyblue;
-			}
-		</style>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="style.css">
 	</head>
 	<body>
-		<h1>MSIT</h1>
-		<div>
-			<h3>Click here to know about MSIT</h3>
-			<button onclick="document.location = 'aboutmsit.html'">about MSIT</button>
-			<h3>Click here to view MSIT courses and grading</h3>
-			<button onclick="document.location = 'courses.html'">courses
-			</button>
-			<h3>Click here to know about placements</h3>
-			<button onclick="document.location = 'placements.html'">placements</button>
-		</div>
 
+		<div class = "container"> 
+			<h1 id = "heading" >MSIT</h1>
+			<h3>Click here to know about MSIT</h3>
+			<button type="button" class="btn-warning btn-xl btn-primary" onclick="document.location = 'aboutmsit.html'">MSIT</button>
+			<h3>Click here to view MSIT courses and grading</h3>
+			<button type="button" class="btn-warning btn-xl btn-primary" onclick="document.location = 'courses.html'">courses</button>
+			<h3>Click here to know about placements</h3>
+			<button type="button" class="btn-warning btn-xl btn-primary" onclick="document.location = 'placements.html'">placements</button>
+			<h4>Click here to apply for MSIT</h4>
+			<a href="http://www.msitprogram.net/admissions/index.php" target="_blank" >Apply for MSIT</a>	
+		</div>														
 	</body>
-</html>
+</html>	

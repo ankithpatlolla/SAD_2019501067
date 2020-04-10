@@ -1,0 +1,94 @@
+h1 {
+	text-align: center;
+	font-size: 40px;
+	}
+h3 {
+	margin: 10px 25px;
+	text-align: 10px;
+	font-weight: normal;
+	color: blue;
+	font-size: 20px;
+}
+
+h4 {
+	margin: 10px 25px;
+	text-align: 10px;
+	font-weight: normal;
+	color: red;
+	font-size: 18px;
+}
+
+p {
+	text-align: justify;
+	text-align-last: left;
+	margin: 25px;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 15px;
+}
+
+button {
+	margin: 10px 25px;
+	width: 100px;
+	height: 30px;
+	font-size: 24;
+	background-color: lightgrey;
+}
+button:hover {
+	background-color: orange;
+}
+
+table {
+border: 2px solid black;
+border-collapse: collapse;
+text-align: middle;
+width: 50%;
+margin: 25px;
+}
+
+th, td {
+border: 1px solid black;
+padding: 5px;
+text-align: center;
+}
+
+th {
+background-color: lightgrey;
+}
+
+.center {
+	display: block;
+	margin-right: auto;
+	margin-left: auto;
+	margin-top: 30px;
+	margin-bottom: 20px;
+	width: 50%;
+}
+ div {
+ 	color: red;
+ 	text-align: center;
+ }
+
+ #heading {
+  background-color: lightblue;
+  color: black;
+  padding: 40px;
+  text-align: center;
+}
+
+body {
+  background-color: lightblue;
+}
+
+@media screen and (min-width: 400px) {
+  body {
+    background-color: lightgrey;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  body {
+    background-color: lavender;
+  }
+}
+
