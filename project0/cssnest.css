@@ -1,7 +1,8 @@
 div {
   font-size: 18px; }
   div th {
-    color: orange; }
+    color: orange;
+    text-align: center; }
   div td {
     color: green; }
 
