@@ -1,0 +1,45 @@
+$color: brown;
+
+ul {
+	color: $color;
+	font-size: 15;
+}
+
+ol {
+	color: $color;
+	font-size: 18;
+}
+
+%h {
+	font-family: sans-serif;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.about {
+	@extend %h;
+	color: green;
+}
+
+.placements {
+    @extend %h;
+    color: orange;
+}
+
+.home {
+    @extend %h;
+    color: red;
+}
+
+div {
+    font-size: 18px;
+
+    th {
+        color: orange;
+        text-align: center;
+    }
+
+    td {
+        color: green;
+    }
+}

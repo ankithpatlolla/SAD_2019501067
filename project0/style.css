@@ -92,3 +92,11 @@ body {
   }
 }
 
+h6 {
+	margin: 10px 25px;
+	text-align: center;
+	font-weight: normal;
+	color: red;
+	font-size: 18px;
+}
+
