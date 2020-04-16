@@ -26,7 +26,7 @@ def index():
     return "Project 1: TODO"
 
 @app.route("/register",methods = ["GET", "POST"])
-def signin():
+def signup():
     if request.method == "POST":
         name = request.form.get("name")
         email = request.form.get("email")
