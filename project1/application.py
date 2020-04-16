@@ -27,13 +27,13 @@ def index():
 
 @app.route("/register",methods = ["GET", "POST"])
 def signin():
-    if request.method == "GET":
-        return render_template("registration.html")
-    else:
+    if request.method == "POST":
         name = request.form.get("name")
         email = request.form.get("email")
         password = request.form.get("password")
         print("name : ", name)
         print("email : ", email)
-        return render_template("registration.html", name = name)
+        return render_template("hello.html", name = name)
+    return render_template("registration.html")
+        
         
