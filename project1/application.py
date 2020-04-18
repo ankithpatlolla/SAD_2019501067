@@ -50,5 +50,9 @@ def signup():
             return render_template("error.html")
     else:
         return render_template("registration.html")
-        
+
+@app.route("/admin",methods = ["GET"])
+def tabledetails():
+    data = db.query(User)
+    return render_template("admin.html",data = data)      
         

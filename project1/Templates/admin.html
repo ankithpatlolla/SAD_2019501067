@@ -1,9 +1,52 @@
+
 <!DOCTYPE html>
 <html>
-<head>
-	<title></title>
-</head>
-<body>
+    <head>
+        <style>
+            table {
+                border: 2px solid black;
+                border-collapse: collapse;
+                text-align: center;
+                width: 50%;
+            }
 
-</body>
+            th, td {
+                border: 1px solid black;
+                padding: 5px;
+                text-align: center;
+            }
+
+            th {
+                background-color: lightgrey;
+
+            }
+
+            body {
+                background-color:lavender;
+                font-size: large;
+            }
+            h1 {
+                text-align: center;
+                color: orange;
+                
+            }
+        </style>
+    </head>
+    <body>
+    <h1>Registered Users</h1><br>
+    <table align="center">
+        <th> {{"Name"}}</th>
+        <th>{{"Email"}}</th>
+        <th>{{"Password"}}</th>
+        <th>{{"Timestamp"}}</th>
+        {% for item in data %}
+         <tr>
+             <td> {{item.name}}</td>
+             <td> {{item.email}}</td>
+             <td> {{item.password}}</td>
+             <td> {{item.timestamp}}</td>
+            </tr>
+         {% endfor %}   
+    </table>
+    </body>
 </html>
