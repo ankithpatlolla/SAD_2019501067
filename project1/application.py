@@ -1,4 +1,6 @@
 import os
+from models import *
+import datetime
 
 from flask import Flask, session, render_template, request
 from flask_session import Session
@@ -19,6 +21,7 @@ Session(app)
 # Set up database
 engine = create_engine(os.getenv("DATABASE_URL"))
 db = scoped_session(sessionmaker(bind=engine))
+session = db()
 
 
 @app.route("/")
@@ -33,7 +36,23 @@ def signup():
         password = request.form.get("password")
         print("name : ", name)
         print("email : ", email)
-        return render_template("hello.html", name = name)
-    return render_template("registration.html")
-        
+        timestamp = datetime.datetime.now()
+        # print("timestamp ::", timestamp)
+        user = User(name=name,email=email,password=password,timestamp=timestamp)
+        # print("user added")
+        try:
+            session.add(user)
+            # print("add done")
+            session.commit()
+            # print("commit done")
+            return render_template("hello.html", name = name)
+        except:
+            return render_template("error.html")
+    else:
+        return render_template("registration.html")
+
+@app.route("/admin",methods = ["GET"])
+def tabledetails():
+    data = db.query(User)
+    return render_template("admin.html",data = data)      
         
