@@ -54,5 +54,20 @@ def signup():
 @app.route("/admin",methods = ["GET"])
 def tabledetails():
     data = db.query(User)
-    return render_template("admin.html",data = data)      
+    return render_template("admin.html",data = data)
+
+@app.route("/auth", methods = ["POST"])
+def authorized():
+    if request.method == "POST":
+        name = request.form.get("name")
+        email = request.form.get("email")
+        password = request.form.get("password")
+        thisuser = db.query(User).get(email)
+        if thisuser != None:
+            if password == thisuser.password:
+                return render_template("login.html", name = name)
+            else:
+                return render_template("registration.html", name = "Please enter correct password")
+        else:
+            return render_template("registration.html", name = "No user with this email")
         

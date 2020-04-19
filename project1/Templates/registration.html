@@ -39,11 +39,19 @@
 			text-align:center;
 			color: orange;
 		}
+		p {
+			text-align: center;
+			color: orange;
+			font-size: 18px;
+		}
 	</style>
 </head>
 	<body>
 		<div class = "container">
 			<h2>Please register here</h2>
+			{%if name%}
+				<p>{{name}}</p>
+			{%endif%}	
 			<form action="{{url_for('signup') }}" method="POST">
 				<div class="form-group">
 					<label>Name</label>
@@ -59,8 +67,10 @@
 					<input name = "password" type="password" class="form-control" placeholder="Password" required>
 				</div>
 				<div class="button">
-					<button type="submit" class="btn btn-primary">Submit</button>
-				</div>	
+					<button type="submit" class="btn btn-primary">Register</button>
+					<button type="submit" class="btn btn-primary" formaction= "/auth">Login</button>
+				</div>
+
 			</form>
 		</div>	
 	</body>
