@@ -3,47 +3,14 @@
 <head>
 	<title>Registration</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-	<style type="text/css">
-		body {
-			background: grey;
-		}
-		.form-group {
-			margin-right: auto;
-			margin-left: auto;
-			margin-top: 30px;
-			margin-bottom: 20px;
-			width: 30%;
-			color: orange;
-			font-weight: bold;
-		}
-
-		.button {
-			text-align: center;
-			margin-right: auto;
-			margin-left: auto;
-			margin-top: 30px;
-			margin-bottom: 20px;
-		}
-
-		.form-control {
-			/*text-align: center;*/
-			background-color: lightblue;
-
-		}
-		input {
-			text-align: center;
-		}
-
-		h2 {
-			margin: 25px;
-			text-align:center;
-			color: orange;
-		}
-	</style>
+	<link rel="stylesheet" type="text/css" href="{{url_for('static', filename = 'css.css')}}">
 </head>
 	<body>
 		<div class = "container">
 			<h2>Please register here</h2>
+			{%if name%}
+				<p>{{name}}</p>
+			{%endif%}	
 			<form action="{{url_for('signup') }}" method="POST">
 				<div class="form-group">
 					<label>Name</label>
@@ -59,8 +26,10 @@
 					<input name = "password" type="password" class="form-control" placeholder="Password" required>
 				</div>
 				<div class="button">
-					<button type="submit" class="btn btn-primary">Submit</button>
-				</div>	
+					<button type="submit" class="btn btn-primary">Register</button>
+					<button type="submit" class="btn btn-primary" formaction= "/auth">Login</button>
+				</div>
+
 			</form>
 		</div>	
 	</body>

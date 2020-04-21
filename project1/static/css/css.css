@@ -1,0 +1,58 @@
+h1 {
+	text-align: center;
+	color: orange;
+	margin: 25px;
+}
+body {
+	background-color: lavender; 
+}
+.button {
+	text-align: center;
+	margin-right: auto;
+	margin-left: auto;
+	margin-top: 30px;
+	margin-bottom: 20px;
+}
+.form-group {
+	margin-right: auto;
+	margin-left: auto;
+	margin-top: 30px;
+	margin-bottom: 20px;
+	width: 30%;
+	color: orange;
+	font-weight: bold;
+}
+.form-control {
+	background-color: lightblue;
+}
+input {
+	text-align: center;
+}
+
+h2 {
+	margin: 25px;
+	text-align:center;
+	color: orange;
+}
+p {
+	text-align: center;
+	color: orange;
+	font-size: 18px;
+}
+table {
+    border: 2px solid black;
+    border-collapse: collapse;
+    text-align: center;
+    width: 50%;
+}
+
+th, td {
+    border: 1px solid black;
+    padding: 5px;
+    text-align: center;
+}
+
+th {
+    background-color: lightgrey;
+
+}
