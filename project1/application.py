@@ -81,4 +81,23 @@ def authorized():
 def logout():
     session.clear()
     return redirect("/register")
+@app.route("/search", methods = ["POST"])
+def search():
+    if session.get("email") is not None:
+        search_type = request.form.get("search_type")
+        name = request.form.get("name")
+        search = "%{}%".format(name)
+
+        if search_type == "title":
+            book_obj = db.query(Book).filter(Book.title.like(search)).all()
+            return render_template("login.html", book_obj=book_obj)
+        elif search_type == "author":
+            book_obj = db.query(Book).filter(Book.author.like(search)).all()
+            return render_template("login.html", book_obj=book_obj)
+
+        else:
+            book_obj = db.query(Book).filter(Book.isbn.like(search)).all()
+            return render_template("login.html", book_obj=book_obj)
+
+
           
