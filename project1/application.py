@@ -81,23 +81,38 @@ def authorized():
 def logout():
     session.clear()
     return redirect("/register")
-@app.route("/search", methods = ["POST"])
+@app.route("/search", methods = ["POST","GET"])
 def search():
-    if session.get("email") is not None:
+    msg = ""
+    book_obj=[]
+
+    if request.method == "GET":
+        if session.get("email") is not None:
+            return render_template("login.html", book_obj=book_obj, msg=msg)
+        else:
+            return render_template("registration.html", name = "Please Login")
+    else:
         search_type = request.form.get("search_type")
         name = request.form.get("name")
         search = "%{}%".format(name)
+        book_obj=[]
 
         if search_type == "title":
             book_obj = db.query(Book).filter(Book.title.like(search)).all()
-            return render_template("login.html", book_obj=book_obj)
+            if len(book_obj) == 0:
+                msg = "No results found"
+            return render_template("login.html", book_obj=book_obj, msg=msg)
         elif search_type == "author":
             book_obj = db.query(Book).filter(Book.author.like(search)).all()
-            return render_template("login.html", book_obj=book_obj)
+            if len(book_obj) == 0:
+                msg = "No results found"
+            return render_template("login.html", book_obj=book_obj, msg=msg)
 
         else:
+            if len(book_obj) == 0:
+                msg = "No results found"
             book_obj = db.query(Book).filter(Book.isbn.like(search)).all()
-            return render_template("login.html", book_obj=book_obj)
+            return render_template("login.html", book_obj=book_obj, msg=msg)
 
 
           
