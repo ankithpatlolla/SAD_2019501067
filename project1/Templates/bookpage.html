@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>book page</title>
+         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+         <style>
+             h1,h2 {
+                font-weight: bold;
+                margin: 23px 23px 23px 0px;
+                color: black;
+                text-align: left;
+
+             }
+
+             .container { 
+                background-color: lightgrey;
+                width: 40%;
+             }
+         </style>
+    </head>
+    <body class = "container">
+        <h1>Book details</h1>
+
+        <table class="table table-dark">
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col">Details</th>
+                    <th scope="col">Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for book in data %}
+                        <tr>
+                            <td>ID</td>
+                            <td>{{book.id}}</td>
+                        </tr>
+                        <tr>
+                            <td>ISBN</td>
+                            <td>{{book.isbn}}</td>
+                        </tr>
+                        <tr> 
+                            <td>Title</td>
+                            <td>{{book.title}}</td>
+                        </tr>
+                        <tr> 
+                            <td>Author</td>
+                            <td>{{book.author}}</td>
+                        </tr>
+                        <tr> 
+                            <td>Published</td>
+                            <td>{{book.year}}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+        </table>
+
+        <!-- <table class="table table-dark">
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col">Details</th>
+                    <th scope="col">Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for book in data %}
+                        <tr>
+                            <td>ID</td>
+                            <td>{{book.id}}</td>
+                        </tr>
+                        <tr>
+                            <td>ISBN</td>
+                            <td>{{book.isbn}}</td>
+                        </tr>
+                        <tr> 
+                            <td>Title</td>
+                            <td>{{book.title}}</td>
+                        </tr>
+                        <tr> 
+                            <td>Author</td>
+                            <td>{{book.author}}</td>
+                        </tr>
+                        <tr> 
+                            <td>Published</td>
+                            <td>{{book.year}}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+        </table> -->
+    </body>
+</html>
