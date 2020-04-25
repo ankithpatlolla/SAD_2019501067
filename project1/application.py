@@ -90,7 +90,7 @@ def search():
         if session.get("email") is not None:
             return render_template("login.html", book_obj=book_obj, msg=msg)
         else:
-            return render_template("registration.html", name = "Please Login")
+            return render_template("registration.html", name = "Please Login First")
     else:
         search_type = request.form.get("search_type")
         name = request.form.get("name")
@@ -109,9 +109,9 @@ def search():
             return render_template("login.html", book_obj=book_obj, msg=msg)
 
         else:
+            book_obj = db.query(Book).filter(Book.isbn.like(search)).all()
             if len(book_obj) == 0:
                 msg = "No results found"
-            book_obj = db.query(Book).filter(Book.isbn.like(search)).all()
             return render_template("login.html", book_obj=book_obj, msg=msg)
 
 

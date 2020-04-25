@@ -35,7 +35,7 @@
         <th>{{"Author"}}</th>
         {% for book in book_obj %}
          <tr>
-             <td> {{book.isbn}}</td>
+             <td> <a href="{{''.join(['/bookpage/isbn=',book.isbn])}}">{{book.isbn}}</a></td>
              <td> {{book.title}}</td>
              <td> {{book.author}}</td>
 
