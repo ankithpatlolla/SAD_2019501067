@@ -26,7 +26,7 @@ SESSION = db()
 @app.route("/")
 def index():
     if session.get("email") is not None:
-        return render_template("login.html")
+        return render_template("login.html",name=session.get("email"))
     else:
         return redirect("/register")
 
@@ -57,7 +57,7 @@ def signup():
             return render_template("registration.html")
 
 @app.route("/admin",methods = ["GET"])
-def tabledetails():
+def tabledetails():     #orange
     data = db.query(User)
     return render_template("admin.html",data = data)
 
@@ -81,4 +81,38 @@ def authorized():
 def logout():
     session.clear()
     return redirect("/register")
-          
+           
+@app.route("/bookpage",methods = ["GET","POST"])
+def bookpage():
+    if session.get("email") is None:
+        return redirect("/register")
+    isbn = "1857231082"
+    book = SESSION.query(Book).filter_by(isbn = isbn).first()
+    rating = SESSION.query(Review).filter_by(title=book.title).all()
+    email = session.get("email")
+    obj = SESSION.query(User).get(email)
+    Uname = obj.name
+
+    if request.method == "POST":
+        # book = SESSION.query(Book).filter_by(isbn = isbn).first()
+        title = book.title
+        rating1 = request.form.get("rate")
+        review = request.form.get("comment")
+        temp = Review(Uname,title,rating1,review)
+        # ratin = SESSION.query(Review).filter_by(title=book.title).all()
+
+        try:
+            SESSION.add(temp)
+            SESSION.commit() 
+            rating = SESSION.query(Review).filter_by(title=book.title).all()
+            return render_template("review.html",data = book, name = Uname,rating = rating)
+        except:
+            # ratin = SESSION.query(Review).filter_by(title=book.title).all()
+            SESSION.rollback()
+            return render_template("review.html",data=book,text = "User already given review",rating = rating)
+    else:
+        return render_template("review.html",data = book, name = Uname ,rating = rating)
+
+
+
+
