@@ -26,7 +26,7 @@ SESSION = db()
 @app.route("/")
 def index():
     if session.get("email") is not None:
-        return render_template("login.html")
+        return render_template("login.html",name=session.get("email"))
     else:
         return redirect("/register")
 
@@ -57,7 +57,7 @@ def signup():
             return render_template("registration.html")
 
 @app.route("/admin",methods = ["GET"])
-def tabledetails():
+def tabledetails():    
     data = db.query(User)
     return render_template("admin.html",data = data)
 
@@ -113,6 +113,54 @@ def search():
             if len(book_obj) == 0:
                 msg = "No results found"
             return render_template("login.html", book_obj=book_obj, msg=msg)
+
+# @app.route("/bookpage/<string:arg>",methods = ["GET"])
+# def bookpage(arg):
+#     if session.get("email") is not None:
+#         isbn = arg.strip().split("=")[1]
+#         book = db.query(Book).filter_by(isbn = isbn)
+#         return render_template("bookpage.html", data = book)
+#     else:
+#         return redirect("/register")  
+
+@app.route("/bookpage/<string:arg>",methods = ["GET","POST"])
+def bookpage(arg):
+    if session.get("email") is None:
+        return redirect("/register")
+    print(arg)
+    isbn = arg.strip().split("=")[1]
+
+    book = SESSION.query(Book).filter_by(isbn = isbn).first()
+    rating = SESSION.query(Review).filter_by(title=book.title).all()
+    email = session.get("email")
+    obj = SESSION.query(User).get(email)
+    Uname = obj.name
+
+    if request.method == "POST":
+        # book = SESSION.query(Book).filter_by(isbn = isbn).first()
+        title = book.title
+        rating1 = request.form.get("rate")
+        review = request.form.get("comment")
+        temp = Review(Uname,title,rating1,review)
+        # ratin = SESSION.query(Review).filter_by(title=book.title).all()
+
+        try:
+            SESSION.add(temp)
+            SESSION.commit() 
+            rating = SESSION.query(Review).filter_by(title=book.title).all()
+            return render_template("review.html",data = book, name = Uname,rating = rating)
+        except:
+            SESSION.rollback()
+            return render_template("review.html",data=book,text = "User already given review",rating = rating)
+    else:
+        return render_template("review.html",data = book, name = Uname ,rating = rating)
+
+
+
+
+
+  
+
 
 
           
