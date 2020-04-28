@@ -81,4 +81,16 @@ def authorized():
 def logout():
     session.clear()
     return redirect("/register")
+
+@app.route("/bookpage/<string:arg>",methods = ["GET"])
+def bookpage(arg):
+    if session.get("email") is not None:
+        isbn = arg.strip().split("=")[1]
+        book = db.query(Book).filter_by(isbn = isbn)
+        return render_template("bookpage.html", data = book)
+    else:
+        return redirect("/register")    
+
+
+
           
