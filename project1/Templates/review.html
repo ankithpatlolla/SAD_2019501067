@@ -11,7 +11,7 @@
                 font-weight: bold;
                 /* margin: 23px 23px 23px 0px; */
                 color: black;
-                text-align: center;
+                text-align: center; 
                 /* border: 4px dotted blue; */
 
              }
@@ -23,10 +23,10 @@
                  /* border-collapse: collapse; */
              }
 
-             .container { 
+             .container {
                 background-color: lightgrey;
                 width: 40%;
-             } 
+             }
              form {
                  text-align: center;
              }
@@ -60,11 +60,11 @@
             content: '★ ';
         }
         .rate > input:checked ~ label {
-            color: #ffc700;    
+            color: #ffc700;
         }
         .rate:not(:checked) > label:hover,
         .rate:not(:checked) > label:hover ~ label {
-            color: #deb217;  
+            color: #deb217;
         }
         .rate > input:checked + label:hover,
         .rate > input:checked + label:hover ~ label,
@@ -95,15 +95,15 @@
                             <td>ISBN</td>
                             <td>{{data.isbn}}</td>
                         </tr>
-                        <tr> 
+                        <tr>
                             <td>Title</td>
                             <td>{{data.title}}</td>
                         </tr>
-                        <tr> 
+                        <tr>
                             <td>Author</td>
                             <td>{{data.author}}</td>
                         </tr>
-                        <tr> 
+                        <tr>
                             <td>Published</td>
                             <td>{{data.year}}</td>
                         </tr>
@@ -123,19 +123,19 @@
 
         <input type="radio" id="star4" name="rate" value="4" style="text-align: center;"/>
         <label for="star4" title="text">4 stars</label>
-        
+
         <input type="radio" id="star3" name="rate" value="3" style="text-align: center;"/>
         <label for="star3" title="text">3 stars</label>
-        
+
         <input type="radio" id="star2" name="rate" value="2" style="text-align: center;"/>
         <label for="star2" title="text">2 stars</label>
-        
+
         <input type="radio" id="star1" name="rate" value="1" style="text-align: center;"/>
         <label for="star1" title="text">1 star</label>
-    </div><br><br><br> 
+    </div><br><br><br>
     <textarea rows="4" cols="50" name="comment" form="usrform">
         Enter text here...</textarea><br><br>
-    <button type="submit">submit</button> 
+    <button type="submit">submit</button>
 
 </form>
     <br><br><br>
@@ -146,7 +146,7 @@
         <!-- </tr> -->
         <h3> <u>Reviews</u>:</h3>
         {% for rate in rating %}
-        <div class = "review">  
+        <div class = "review">
         <ul>
             <li>username :: {{rate.username}}</li>
             <ul>
@@ -163,11 +163,11 @@
                   <td>username</td>
                   <td>{{rate.username}}</td>
               </tr>
-              <tr> 
+              <tr>
                   <td>rating</td>
                   <td>{{rate.rating}}</td>
               </tr>
-              <tr> 
+              <tr>
                   <td>review</td>
                   <td>{{rate.review}}</td>
               </tr><br><br> -->

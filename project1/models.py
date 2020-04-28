@@ -29,7 +29,7 @@ class Book(db.Model):
         self.isbn = isbn
         self.title = title
         self.author = author
-        self.year = year        
+        self.year = year
 
 class Review(db.Model):
     __tablename__ = "review"
