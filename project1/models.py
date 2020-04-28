@@ -30,3 +30,16 @@ class Book(db.Model):
         self.title = title
         self.author = author
         self.year = year        
+
+class Review(db.Model):
+    __tablename__ = "review"
+    title = db.Column(db.String(80), primary_key=True, nullable=False)
+    username = db.Column(db.String, primary_key=True,nullable=False)
+    rating = db.Column(db.String(128), nullable=False)
+    review = db.Column(db.String, index=False, unique=False, nullable=False)
+
+    def __init__(self, username, title, rating, review) :
+        self.username = username
+        self.title = title
+        self.rating = rating
+        self.review = review

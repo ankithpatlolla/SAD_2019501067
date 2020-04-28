@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>review page</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+        <!-- <link rel="stylesheet" href="{{url_for('static',filename='review.css')}}"> -->
+    </head>
+    <style>
+             h1,h3 {
+                font-weight: bold;
+                /* margin: 23px 23px 23px 0px; */
+                color: black;
+                text-align: center;
+                /* border: 4px dotted blue; */
+
+             }
+             table {
+                 text-align: center;
+                 margin: auto;
+                 border: 3px solid black;
+                 padding: 20px;
+                 /* border-collapse: collapse; */
+             }
+
+             .container { 
+                background-color: lightgrey;
+                width: 40%;
+             } 
+             form {
+                 text-align: center;
+             }
+             .review {
+                 display: table;
+                 margin: auto auto auto 35%;
+                 /* margin: 0 auto; */
+                 /* text-align: center; */
+             }
+        .rate {
+            text-align: center;
+            float: left;
+            height: 46px;
+            padding: 0 10px;
+            margin: auto auto auto 35%;
+        }
+        .rate:not(:checked) > input {
+            position:absolute;
+            top:-9999px;
+        }
+        .rate:not(:checked) > label {
+            float:right;
+            width:1em;
+            overflow:hidden;
+            white-space:nowrap;
+            cursor:pointer;
+            font-size:30px;
+            color:black;
+        }
+        .rate:not(:checked) > label:before {
+            content: '★ ';
+        }
+        .rate > input:checked ~ label {
+            color: #ffc700;    
+        }
+        .rate:not(:checked) > label:hover,
+        .rate:not(:checked) > label:hover ~ label {
+            color: #deb217;  
+        }
+        .rate > input:checked + label:hover,
+        .rate > input:checked + label:hover ~ label,
+        .rate > input:checked ~ label:hover,
+        .rate > input:checked ~ label:hover ~ label,
+        .rate > label:hover ~ input:checked ~ label {
+            color: #c59b08;
+        }
+    </style>
+        <body class = "container">
+        {% if data %}
+
+        <h1>Book details</h1><br><br>
+
+        <table class="table table-dark">
+            <thead class="thead-dark">
+              <tr>
+                <th scope="col">Details</th>
+                <th scope="col">Description</th>
+              </tr>
+            </thead>
+            <tbody>
+                        <!-- <tr> -->
+                            <!-- <td>ID</td> -->
+                            <!-- <td>{{data.id}}</td> -->
+                        <!-- </tr> -->
+                        <tr>
+                            <td>ISBN</td>
+                            <td>{{data.isbn}}</td>
+                        </tr>
+                        <tr> 
+                            <td>Title</td>
+                            <td>{{data.title}}</td>
+                        </tr>
+                        <tr> 
+                            <td>Author</td>
+                            <td>{{data.author}}</td>
+                        </tr>
+                        <tr> 
+                            <td>Published</td>
+                            <td>{{data.year}}</td>
+                        </tr>
+                        </tbody>
+        </table> <br><br>
+        {% endif %}
+       <form class="in" action="{{url_for('bookpage')}}" method="post" id="usrform">
+        {% if text %}
+        <h3>{{text}}, please check in reviews</h3>
+        {% else %}
+        <h3>Hello {{name}},review the book</h3><br><br>
+        {% endif %}
+
+    <div class="rate" >
+        <input type="radio" id="star5" name="rate" value="5" style="text-align: center;"/>
+        <label for="star5" title="text">5 stars</label>
+
+        <input type="radio" id="star4" name="rate" value="4" style="text-align: center;"/>
+        <label for="star4" title="text">4 stars</label>
+        
+        <input type="radio" id="star3" name="rate" value="3" style="text-align: center;"/>
+        <label for="star3" title="text">3 stars</label>
+        
+        <input type="radio" id="star2" name="rate" value="2" style="text-align: center;"/>
+        <label for="star2" title="text">2 stars</label>
+        
+        <input type="radio" id="star1" name="rate" value="1" style="text-align: center;"/>
+        <label for="star1" title="text">1 star</label>
+    </div><br><br><br> 
+    <textarea rows="4" cols="50" name="comment" form="usrform">
+        Enter text here...</textarea><br><br>
+    <button type="submit">submit</button> 
+
+</form>
+    <br><br><br>
+    <!-- <table align = center> -->
+        <!-- <tr> -->
+          <!-- <th>Details</th> -->
+          <!-- <th>Description</th> -->
+        <!-- </tr> -->
+        <h3> <u>Reviews</u>:</h3>
+        {% for rate in rating %}
+        <div class = "review">  
+        <ul>
+            <li>username :: {{rate.username}}</li>
+            <ul>
+                <li>rating :: {{rate.rating}}</li>
+                <li>review :: {{rate.review}}</li>
+            </ul>
+        </ul>
+        </div>
+              <!-- <tr>
+                  <td>title</td>
+                  <td>{{rate.title}}</td>
+              </tr>
+              <tr>
+                  <td>username</td>
+                  <td>{{rate.username}}</td>
+              </tr>
+              <tr> 
+                  <td>rating</td>
+                  <td>{{rate.rating}}</td>
+              </tr>
+              <tr> 
+                  <td>review</td>
+                  <td>{{rate.review}}</td>
+              </tr><br><br> -->
+        {% endfor %}
+    <!-- </table> -->
+
+    </body>
+</html>
