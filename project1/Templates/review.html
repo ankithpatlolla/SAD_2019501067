@@ -110,7 +110,7 @@
                         </tbody>
         </table> <br><br>
         {% endif %}
-       <form class="in" action="{{url_for('bookpage')}}" method="post" id="usrform">
+       <form class="in" action="{{url_for('bookpage',arg=''.join(['isbn=',data.isbn]))}}" method="post" id="usrform">
         {% if text %}
         <h3>{{text}}, please check in reviews</h3>
         {% else %}

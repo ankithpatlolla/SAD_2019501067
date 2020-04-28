@@ -95,7 +95,9 @@ def logout():
 def bookpage(arg):
     if session.get("email") is None:
         return redirect("/register")
+    print(arg)
     isbn = arg.strip().split("=")[1]
+
     book = SESSION.query(Book).filter_by(isbn = isbn).first()
     rating = SESSION.query(Review).filter_by(title=book.title).all()
     email = session.get("email")
