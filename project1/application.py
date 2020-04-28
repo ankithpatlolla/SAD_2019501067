@@ -57,7 +57,7 @@ def signup():
             return render_template("registration.html")
 
 @app.route("/admin",methods = ["GET"])
-def tabledetails():     #orange
+def tabledetails():    
     data = db.query(User)
     return render_template("admin.html",data = data)
 
@@ -81,12 +81,21 @@ def authorized():
 def logout():
     session.clear()
     return redirect("/register")
-           
-@app.route("/bookpage",methods = ["GET","POST"])
-def bookpage():
+
+# @app.route("/bookpage/<string:arg>",methods = ["GET"])
+# def bookpage(arg):
+#     if session.get("email") is not None:
+#         isbn = arg.strip().split("=")[1]
+#         book = db.query(Book).filter_by(isbn = isbn)
+#         return render_template("bookpage.html", data = book)
+#     else:
+#         return redirect("/register")  
+
+@app.route("/bookpage/<string:arg>",methods = ["GET","POST"])
+def bookpage(arg):
     if session.get("email") is None:
         return redirect("/register")
-    isbn = "1857231082"
+    isbn = arg.strip().split("=")[1]
     book = SESSION.query(Book).filter_by(isbn = isbn).first()
     rating = SESSION.query(Review).filter_by(title=book.title).all()
     email = session.get("email")
@@ -107,7 +116,6 @@ def bookpage():
             rating = SESSION.query(Review).filter_by(title=book.title).all()
             return render_template("review.html",data = book, name = Uname,rating = rating)
         except:
-            # ratin = SESSION.query(Review).filter_by(title=book.title).all()
             SESSION.rollback()
             return render_template("review.html",data=book,text = "User already given review",rating = rating)
     else:
@@ -116,3 +124,9 @@ def bookpage():
 
 
 
+
+  
+
+
+
+          
