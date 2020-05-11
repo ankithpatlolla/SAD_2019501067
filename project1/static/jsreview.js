@@ -26,12 +26,17 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log(data)
             //update the result div
             if (data.reviews["status"] === "200") {
-                const contents = ` Your rating --  ${data.reviews["rate"]} your comment -- ${data.reviews["comment"]} `
+                let contents = '<li>' + 'rating is '+data.reviews["rate"] + '</li>' 
+                contents += '<li>' + 'comments are ' + data.reviews["comment"] + '</li>'
+                // const contents = ` Your rating --  ${data.reviews["rate"]} your comment -- ${data.reviews["comment"]} `
                 document.querySelector('#result').innerHTML = contents;
                 
             }
             else if (data.reviews["status"] === "400") {
-                const contents = ` Your rating --  ${data.reviews["rate"]} your comment -- ${data.reviews["comment"]} `
+                let contents = '<li>' + 'rating is'+data.reviews["rate"] + '</li>' 
+                contents += '<li>' + 'comments are ' + data.reviews["comments"] + '</li>'
+                
+                // const contents = ` Your rating --  ${data.reviews["rate"]} your comment -- ${data.reviews["comment"]} `
                 document.querySelector('#result').innerHTML = contents;
             }
             else {

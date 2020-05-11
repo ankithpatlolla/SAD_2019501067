@@ -215,7 +215,7 @@ def submit_review(isbn):
 
         return jsonify({"reviews": dictionary})
 
-    elif revi and revi.rating is not None and revi.review is not None :
+    elif revi and revi.rating is not None and revi.review is not None:
         revi.review_description = comment
         revi.review_rate = rate
         SESSION.add(revi)
