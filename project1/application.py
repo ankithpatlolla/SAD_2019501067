@@ -2,10 +2,11 @@ import os
 from models import *
 import datetime
 
-from flask import Flask, session, render_template, request, redirect
+from flask import Flask, session, render_template, request, redirect, jsonify
 from flask_session import Session
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
+from sqlalchemy import and_
 
 app = Flask(__name__)
 
@@ -155,7 +156,84 @@ def bookpage(arg):
     else:
         return render_template("review.html",data = book, name = Uname ,rating = rating)
 
+@app.route("/api/bookpage/<isbn>", methods = ["GET","POST"])
+def bookpage_api(isbn):
+    print(isbn, "ISBN IN")
+    book = db.query(Book).filter(Book.isbn == isbn)
+    rating = db.query(Review).filter(Book.title == book[0].title).all()
+    rating_count = len(rating)
+    print(rating)
+    print(rating_count)
+    sum1 = 0
+    avg_rating = 0
+    for i in range(len(rating)):
+    	sum1 += int(rating[i].rating)
+    if sum1 > 0:	
+    	avg_rating = sum1 / rating_count
+    print(avg_rating)	
+    # print(book)
+    requested_book = {}
+    requested_book["title"] = book[0].title
+    requested_book["isbn"] = book[0].isbn
+    requested_book["author"] = book[0].author
+    requested_book["year"] = book[0].year
+    requested_book["ratingcount"] = rating_count
+    requested_book["avgrating"] = avg_rating
+    return jsonify({"bookdetails":requested_book})
 
+@app.route("/api/submit_review/<isbn>", methods = ["POST"])
+def submit_review(isbn):
+    data = request.get_json()
+    print(data)
+    
+    email = session.get("email")
+    obj = SESSION.query(User).get(email)
+    username = obj.name
+
+    print(isbn, "ISBN IN")
+    book = SESSION.query(Book).filter_by(isbn = isbn).first()
+    title = book.title
+
+    rate = request.form.get('rate')
+    print(rate)
+    comment = request.form.get("comment")
+    print(comment) 
+    # SESSION.query(Review).filter_by(title=book.title).all()
+    revi = SESSION.query(Review).filter(and_(Review.username == username, Review.title == title)).first()
+    print(revi)
+    if  revi is None:
+        rev = Review(username = username, title = title, rating = rate, review = comment)
+        SESSION.add(rev)
+        SESSION.commit()
+        dictionary = {"success": True, "rate" : rate, "comment" : comment, "status":"200"}
+        
+        # return jsonify({"success": True, "rate" : rate, "comment" : comment, "status":"200"})
+        # dictionary["success"] = True
+        # dictionary["rate"] = rate
+        # dictionary["comment"] = comment
+        # dictionary["status"] = "200"
+
+        return jsonify({"reviews": dictionary})
+
+    elif revi and revi.rating is not None and revi.review is not None :
+        revi.review_description = comment
+        revi.review_rate = rate
+        SESSION.add(revi)
+        SESSION.commit()
+        dictionary = {"success": True, "rate" : rate, "comment" : comment, "status":"200"}
+        # return jsonify({"success": True, "rate" : rate, "comment" : comment, "status":"200"})
+        # dictionary["success"] = True
+        # dictionary["rate"] = rate
+        # dictionary["comment"] = comment
+        # dictionary["status"] = "200"
+        return jsonify({"reviews": dictionary})
+    
+    else:
+        dictionary = {"success": False}
+        # dictionary["success"] = False
+
+        return jsonify({"reviews": dictionary})
+        # return jsonify({"success": False})
 
 
 

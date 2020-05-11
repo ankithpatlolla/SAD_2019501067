@@ -4,7 +4,34 @@
 	<title>Hello</title>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="{{url_for('static', filename = 'css/css.css')}}">
+		
 </head>
+<!-- <script type="text/javascript">
+		function bookpage() {
+			var isbn = document.getElementById("book_isbn").name;
+			console.log(isbn)
+			const myRequest = new XMLHttpRequest();
+			myRequest.open('POST',('/api/bookpage/'+(isbn)+""));
+			const data = new FormData();
+            // data.append(isbn);
+            myRequest.send(isbn);
+			document.getElementById("textdisplay").innerHTML = "";
+			myRequest.onload = function () {
+				const data = JSON.parse(myRequest.responseText);
+				console.log(data);
+				var htmlString = "";
+				htmlString += "<p>" + "Title :" + data.bookdetails["title"] + "</br>";
+				htmlString += "ISBN :" + data.bookdetails["isbn"] + "</br>";
+				htmlString += "Author :" + data.bookdetails["author"] + "</br>";
+				htmlString += "Year :" + data.bookdetails["year"]+ "</br>";
+				htmlString += "Rating Count :" + data.bookdetails["ratingcount"]+ "</br>";
+				htmlString += "Average Rating :" + data.bookdetails["avgrating"]+ "</br>";
+				htmlString += ".</p>"
+			document.getElementById("textdisplay").innerHTML = htmlString;
+			// document.write(htmlString);
+			}
+		}
+	</script> -->
 <body>
 	<h1>Welcome {{name}}!!! You can search your book here</h1>
 	<form action="" method="POST">
@@ -35,7 +62,8 @@
         <th>{{"Author"}}</th>
         {% for book in book_obj %}
          <tr>
-             <td> <a href="{{''.join(['/bookpage/isbn=',book.isbn])}}">{{book.isbn}}</a></td>
+
+             <td> <button id = "book_isbn" name = "{{book.isbn}}" onclick="secpage()">{{book.isbn}}</button></td>
              <td> {{book.title}}</td>
              <td> {{book.author}}</td>
 
@@ -50,6 +78,12 @@
 			<button formaction = "/logout" type="submit" class="btn btn-primary">Logout</button>
 		</div>
 		</form>
+			<!-- <div id = "textdisplay"></div> -->
+		<script src="{{url_for('static', filename = 's.js')}}"></script>
 		
+		<form id = "review"></form>
+		<div id="result"></div>
+		
+
 </body>
 </html>

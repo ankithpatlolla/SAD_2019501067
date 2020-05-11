@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+    <title>review page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <style>
+        h1,h3 {
+           font-weight: bold;
+           /* margin: 23px 23px 23px 0px; */
+           color: black;
+           text-align: center;
+           /* border: 4px dotted blue; */
+
+        }
+        table {
+            text-align: center;
+            margin: auto;
+            border: 3px solid black;
+            padding: 20px;
+            /* border-collapse: collapse; */
+        }
+
+        .container { 
+           background-color: lightgrey;
+           width: 40%;
+        } 
+        form {
+            text-align: center;
+        }
+        .review {
+            display: table;
+            margin: auto auto auto 35%;
+            /* margin: 0 auto; */
+            /* text-align: center; */
+        }
+   .rate {
+       text-align: center;
+       float: left;
+       height: 46px;
+       padding: 0 10px;
+       margin: auto auto auto 35%;
+   }
+   .rate:not(:checked) > input {
+       position:absolute;
+       top:-9999px;
+   }
+   .rate:not(:checked) > label {
+       float:right;
+       width:1em;
+       overflow:hidden;
+       white-space:nowrap;
+       cursor:pointer;
+       font-size:30px;
+       color:black;
+   }
+   .rate:not(:checked) > label:before {
+       content: '★ ';
+   }
+   .rate > input:checked ~ label {
+       color: #ffc700;    
+   }
+   .rate:not(:checked) > label:hover,
+   .rate:not(:checked) > label:hover ~ label {
+       color: #deb217;  
+   }
+   .rate > input:checked + label:hover,
+   .rate > input:checked + label:hover ~ label,
+   .rate > input:checked ~ label:hover,
+   .rate > input:checked ~ label:hover ~ label,
+   .rate > label:hover ~ input:checked ~ label {
+       color: #c59b08;
+   }
+</style>
+<body class = "container">
+    <form class="in" id="usrform" method="POST">
+    <div class="rate" >
+        <input type="radio" id="star5" name="rate" value="5" style="text-align: center;"/>
+        <label for="star5" title="text">5 stars</label>
+
+        <input type="radio" id="star4" name="rate" value="4" style="text-align: center;"/>
+        <label for="star4" title="text">4 stars</label>
+        
+        <input type="radio" id="star3" name="rate" value="3" style="text-align: center;"/>
+        <label for="star3" title="text">3 stars</label>
+        
+        <input type="radio" id="star2" name="rate" value="2" style="text-align: center;"/>
+        <label for="star2" title="text">2 stars</label>
+        
+        <input type="radio" id="star1" name="rate" value="1" style="text-align: center;"/>
+        <label for="star1" title="text">1 star</label>
+    </div><br><br><br> 
+    <textarea rows="4" cols="50" id="comment" name="comment" form="usrform" placeholder="Enter text here..."></textarea><br><br>
+    <!-- <button id="btn" type="submit">submit</button>  -->
+    <input type="submit" value="submit the review">
+    </form>
+    <script src="{{url_for('static',filename='b.js')}}"></script>
+    <div id="result"></div>
+</body>
+</html>
