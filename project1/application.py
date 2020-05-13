@@ -2,12 +2,14 @@ import os
 from models import *
 import datetime
 
-from flask import Flask, session, render_template, request, redirect
+
+from flask import Flask, session, render_template, request, redirect, jsonify, url_for
 from flask_session import Session
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, or_
 from sqlalchemy.orm import scoped_session, sessionmaker
 
 app = Flask(__name__)
+
 
 # Check for environment variable
 if not os.getenv("DATABASE_URL"):
@@ -71,7 +73,7 @@ def authorized():
         if thisuser != None:
             if password == thisuser.password:
                 session["email"] = email
-                return render_template("login.html", name = name)
+                return redirect(url_for("home"))
             else:
                 return render_template("registration.html", name = "Please enter correct password")
         else:
@@ -123,6 +125,10 @@ def search():
 #     else:
 #         return redirect("/register")  
 
+@app.route("/home")
+def home():
+    return render_template("home.html", username = session.get("email"))
+
 @app.route("/bookpage/<string:arg>",methods = ["GET","POST"])
 def bookpage(arg):
     if session.get("email") is None:
@@ -154,6 +160,33 @@ def bookpage(arg):
             return render_template("review.html",data=book,text = "User already given review",rating = rating)
     else:
         return render_template("review.html",data = book, name = Uname ,rating = rating)
+
+@app.route("/api/search", methods = ["POST", "GET"])
+def api_search():
+        data = request.form.get("key")
+            # data = request.get_json()
+        # key = data["key"]
+        key = "%{}%".format(data)
+        books = {"books":[]}
+        filtered_list = db.query(Book).filter(or_(Book.isbn.like(key), Book.author.like(key), Book.title.like(key))).all()
+        if filtered_list:
+            if isinstance(filtered_list, list):
+                for book in filtered_list:
+                    d = dict()
+                    d["isbn"] = book.isbn
+                    d["title"] = book.title
+                    d["author"] = book.author
+                    books["books"].append(d)
+                    print(book.isbn, book.title, book.author)
+                return jsonify(books)
+                    
+            else :
+                return jsonify({"isbn": filtered_list.isbn,"Title": filtered_list.title, "Author": filtered_list.author, "year": filtered_list.year})
+        else:
+            return jsonify({"error": "No books found"},400)
+
+    # except:
+        # return jsonify({"error": "Invalid request"},400)
 
 
 
