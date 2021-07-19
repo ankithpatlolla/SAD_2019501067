@@ -110,7 +110,7 @@
                         </tbody>
         </table> <br><br>
         {% endif %}
-       <form class="in" action="{{url_for('bookpage',arg=''.join(['isbn=',data.isbn]))}}" method="post" id="usrform">
+       <form class="in" action="{{url_for('bookpage',arg=''.join(['isbn=',data.isbn]))}}" id="usrform" method="POST">
         {% if text %}
         <h3>{{text}}, please check in reviews</h3>
         {% else %}
@@ -133,11 +133,14 @@
         <input type="radio" id="star1" name="rate" value="1" style="text-align: center;"/>
         <label for="star1" title="text">1 star</label>
     </div><br><br><br> 
-    <textarea rows="4" cols="50" name="comment" form="usrform">
-        Enter text here...</textarea><br><br>
+    <textarea rows="4" cols="50" id="comment" name="comment" form="usrform" placeholder="Enter text here..."></textarea><br><br>
+    <br>
     <button type="submit">submit</button> 
-
+    <!-- <input type="submit" value="submit the review" onsubmit="renderHTML()"> -->
 </form>
+    <br>
+    <!-- <div id="result"></div> -->
+
     <br><br><br>
     <!-- <table align = center> -->
         <!-- <tr> -->
@@ -172,7 +175,7 @@
                   <td>{{rate.review}}</td>
               </tr><br><br> -->
         {% endfor %}
-    <!-- </table> -->
+    <!-- </table> action="{{url_for('bookpage',arg=''.join(['isbn=',data.isbn]))}}"-->
     <form>
     <div class="button">
       <button formaction = "/logout" type="submit" class="btn btn-primary">Logout</button>
